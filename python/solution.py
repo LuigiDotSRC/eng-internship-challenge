@@ -1,6 +1,12 @@
 from typing import List
 
 def create_square(key: str) -> List[List[str]]:
+    """
+    Create a 5x5 Polybius Square
+
+    @param key: The key used to encode the Polybius square
+    @return: 5x5 Matrix representation of the generated square
+    """
     square = [['']*5 for i in range(5)]
 
     i, j = 0, 0
@@ -19,12 +25,26 @@ def create_square(key: str) -> List[List[str]]:
     return square
 
 def find_char(char: str, square: List[List[str]]) -> tuple[int, int]:
+    """
+    Finds the location of a character inside the Polybius Square
+
+    @param char: The character to search for inside the square
+    @param square: The Polybius square generated from the `create_square()` function
+    @return: (row, col) location of the character within the square
+    """
     for i in range(5):
         for j in range(5):
             if square[i][j] == char:
                 return (i,j)
             
 def decrypt(ciphertext: str, square: List[List[str]]) -> str:
+    """
+    Decrypts the input ciphertext https://en.wikipedia.org/wiki/Playfair_cipher
+
+    @param ciphertext: The input ciphertext
+    @param square: The Polybius square generated from the `create_square()` function
+    @return: Plaintext
+    """
     bigraphs = [ciphertext[i:i+2] for i in range(0, len(ciphertext), 2)]
     result = []
     
@@ -52,4 +72,5 @@ if __name__ == "__main__":
     ciphertext = "IKEWENENXLNQLPZSLERUMRHEERYBOFNEINCHCV"
 
     square = create_square(key)
+
     print(decrypt(ciphertext, square))
